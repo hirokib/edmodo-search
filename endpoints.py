@@ -5,13 +5,21 @@ from flask import json, Response, request
 api = Blueprint('api', __name__, template_folder='templates')
 
 def query_db(query, args=(), one=False):
-    cur = connect_db().cursor()
+    conn = connect_db()
+    cur = conn.cursor()
     cur.execute(query, args)
     rv = [dict((cur.description[idx][0], value)
                for idx, value in enumerate(row)) for row in cur.fetchall()]
-    cur.close()
+    conn.close()
     return (rv[0] if rv else None) if one else rv
 
+def execute_query(query):
+    conn = connect_db()
+    cur = conn.cursor()
+    cur.execute(query)
+    conn.commit()
+    conn.close()
+    return ''
 
 @api.route('/products', methods=['GET'])
 def getAllProducts():
@@ -39,5 +47,23 @@ def getSearchResults(search):
 def parseRanking():
     data = request.data
     res = json.loads(data.decode('utf-8'))
-    print(res)
+    query = res['query']
+    prod_id = res['id']
+    inappropriate  = 1 if (res['resultFlags']['modalValue1']) else 0
+    nothelpful  = 1 if (res['resultFlags']['modalValue2']) else 0
+    wrongtags  = 1 if (res['resultFlags']['modalValue3']) else 0
+    spam  = 1 if (res['resultFlags']['modalValue4']) else 0
+    query = "insert into searchRatings (query, product_id, inappropriate, nothelpful, wrongtags, spam) \
+             values ('{}',{},{},{},{},{})".format(query, prod_id, inappropriate, nothelpful, wrongtags, spam)
+    execute_query(query)
     return 'success'
+
+@api.route('/products/flagged', methods=['GET'])
+def getFlaggedResults():
+    query = "select * from searchRatings"
+    result = query_db(query)
+    print('flagged called')
+    print(result)
+    json_result = json.dumps(result)
+    resp = Response(response=json_result, mimetype='application/json')
+    return resp

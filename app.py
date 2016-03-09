@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, make_response
 import sqlite3
 from contextlib import closing
 from endpoints import api
@@ -11,7 +11,7 @@ USERNAME = 'admin'
 PASSWORD = 'password'
 
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='static/templates')
 app.config.from_object(__name__)
 app.register_blueprint(api, url_prefix='/api/v1')
 
@@ -34,6 +34,11 @@ def get_db():
 @app.route('/', methods=['GET','POST'])
 def index():
     return render_template("index.html")
+
+@app.route('/partial/<path:path>', methods=['GET'])
+def serve_partial(path):
+    return make_response(open('static/templates/partial/{}'.format(path)).read())
+    # return 'hi {}'.format(path)
 
 if __name__ == '__main__':
     app.run(debug=True)
