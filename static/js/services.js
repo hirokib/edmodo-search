@@ -18,4 +18,8 @@ angular.module('searchApp')
       _this.products = response;
     });
 
+    this.getFlaggedResults = function() {
+      return $http.get('/api/v1/products/flagged');
+    }
+
   }]);

@@ -10,6 +10,19 @@
 
     }]);
 
+    angular.module('searchApp')
+      .controller('searchRatingsCtrl', ['$scope', '$http', 'searchService', function($scope, $http, searchService) {
+
+        var _this = this;
+        this.ratingList = [];
+        searchService.getFlaggedResults().then(function(response){
+          console.log(response.data);
+          _this.ratingList = response.data;
+        });
+
+
+      }]);
+
   angular.module('searchApp')
     .controller('searchResultsCtrl', ['$scope', '$http', 'searchService', function($scope, $http, searchService) {
       $scope.data = searchService;

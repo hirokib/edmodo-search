@@ -13,6 +13,11 @@
           controllerAs: 'results'
         })
 
+        .when('/flagged', {
+          templateUrl: 'partial/flagged-results.html',
+          controller: 'searchRatingsCtrl',
+          controllerAs: 'ratings'
+        })
 
       .otherwise({
         redirectTo: '/'

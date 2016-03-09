@@ -60,7 +60,8 @@ def parseRanking():
 
 @api.route('/products/flagged', methods=['GET'])
 def getFlaggedResults():
-    query = "select * from searchRatings"
+    query = "select s.title, sr.product_id, sr.query, sr.inappropriate, sr.nothelpful, sr.wrongtags, \
+            sr.spam from searchRatings as sr,  _source as s where s.product_id = sr.product_id;"
     result = query_db(query)
     print('flagged called')
     print(result)

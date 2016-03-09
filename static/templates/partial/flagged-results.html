@@ -1,0 +1,25 @@
+<h3> Search Ratings </h3>
+
+<table class="table">
+  <th> Query </th>
+  <th> Product Id</th>
+  <th> Product Title </th>
+  <th> Inappropriate </th>
+  <th> Not Helpful </th>
+  <th> Wrong Tags </th>
+  <th> Spam </th>
+  <tr ng-repeat="result in ratings.ratingList">
+    <td> {{result.query}}  </td>
+    <td> {{result.product_id}} </td>
+    <td> {{result.title}}</td>
+    <td> {{result.inappropriate}} </td>
+    <td> {{result.nothelpful}} </td>
+    <td> {{result.wrongtags}} </td>
+    <td> {{result.spam}} </td>
+  </tr>
+
+
+
+
+  </th>
+</table>
