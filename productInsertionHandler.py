@@ -132,15 +132,11 @@ def insertProductIntoDB(product):
     conn.commit()
     conn.close()
 
-
-if __name__ == "__main__":
-    # insertProduct(TEST_DATA)
-    # deleteAllTableContents()
+def dbProductSetup():
     query_list = readQueryFileToList('queryList.txt')
     prods = getProductsFromQueries(query_list)
-    # # theset = set()
-    # import util.Counter()
     for prod in prods:
-    # #     theset.add(prod['_id'])
-    # # print(len(theset))
         insertProductIntoDB(prod)
+
+if __name__ == "__main__":
+    dbProductSetup()

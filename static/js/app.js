@@ -9,15 +9,15 @@
       $routeProvider
         .when('/', {
           templateUrl: 'partial/results.html',
-          controller: 'searchResultsCtrl1',
+          controller: 'searchResultsCtrl',
           controllerAs: 'results'
         })
 
-        .when('/flagged', {
-          templateUrl: 'partial/flagged-results.html',
-          controller: 'searchRatingsCtrl',
-          controllerAs: 'ratings'
-        })
+      .when('/flagged', {
+        templateUrl: 'partial/flagged-results.html',
+        controller: 'searchRatingsCtrl',
+        controllerAs: 'ratings'
+      })
 
       .otherwise({
         redirectTo: '/'

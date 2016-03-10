@@ -24,7 +24,7 @@
   <div class="modal fade" id="flag-modal{{$index}}" tabindex="-1" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
-        <form ng-submit="addResultFlags(lastQuery, lastProductId, resultFlags)">
+        <form ng-submit="results.addResultFlags(lastQuery, lastProductId, resultFlags)">
 
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -45,8 +45,8 @@
             </label>
           </div>
           <div class="modal-footer">
-            <button type="button" ng-click="resetFlags()" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="submit" value="submit" class="btn btn-primary">Save changes</button>
+            <button type="button" ng-click="results.resetFlags()" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" value="submit" class="btn btn-primary" ng-click="results.hideModal($index)">Save changes</button>
           </div>
         </form>
 
