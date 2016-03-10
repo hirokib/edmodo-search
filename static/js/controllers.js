@@ -60,7 +60,7 @@
       var _this = this;
 
       $scope.data = searchService;
-      $scope.query = '';
+      $scope.query = 'bio';
       $scope.lastQuery = '';
       $scope.searchResults = [];
       $scope.modal = '';
@@ -105,6 +105,10 @@
           modalValue4: false
         };
       };
+
+      // TODO delete shit later
+      $scope.search();
+
 
     }]);
   // end controller

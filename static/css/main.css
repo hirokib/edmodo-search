@@ -6,8 +6,31 @@ body {
   max-width: 100px;
 }
 
-.media {
-  max-height: 100px;
+.item {
+  border: 1px gray solid;
+  margin: 10px;
+  max-height: 400px
+}
+
+.item-header {
+  height: 50px;
+}
+
+.item-desc {
+  height: 60px;
+  overflow: hidden;
+}
+
+.img-container {
+  height: 150px;
+  text-align: center;
+  overflow: hidden;
+  border: 1px gray solid;
+  margin-top: 10px;
+}
+
+.item img {
+  object-fit: contain;
 }
 
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }

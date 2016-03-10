@@ -36,7 +36,7 @@ def getSearchResults(search):
           _source.title like \'{}%\'".format(search)
     else:
         query = "select products._id, products._score, _source.title, _source.img_path, \
-        _source.long_desc from products inner join _source on products._id = _source.product_id \
+        _source.long_desc, _source.price from products inner join _source on products._id = _source.product_id \
         where _source.title like \'%{0}%\' or _source.long_desc  like\'%{0}%\'".format(search)
     prods = query_db(query)
     prods = json.dumps(prods)

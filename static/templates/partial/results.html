@@ -3,7 +3,69 @@
 </div>
 
 
+<div id="products" class="row container-fluid">
+  <div class="item  col-xs-3 col-lg-2" ng-repeat="result in results.searchResults track by $index" ng-hide="searchResults.length == 0">
+    <div class="item-box">
+      <div class="img-container">
+        <img src={{result.img_path}} alt={{result._id}} />
+      </div>
 
+      <h4 class="item-header"> {{result.title}}</h4>
+      <p class="item-desc"> {{result.long_desc}}</p>
+      <div class="row">
+        <div class="col-xs-12 col-md-6">
+          <p class="lead">${{result.price}}</p>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <button class="btn btn-default" value={{result._id}} type="submit" data-toggle="modal" data-target="#flag-modal{{$index}}" ng-click="lastProduct(result._id)">Flag</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- modal -->
+    <div class="modal fade" id="flag-modal{{$index}}" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form ng-submit="results.addResultFlags(lastQuery, lastProductId, resultFlags)">
+
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title">Please rank this result using some or all of the options</h4>
+            </div>
+            <div class="modal-body">
+              <label class="checkbox-inline">
+                <input type="checkbox" id="checkbox1" ng-model="resultFlags.modalValue1"> Inappropriate
+              </label>
+              <label class="checkbox-inline">
+                <input type="checkbox" id="checkbox2" ng-model="resultFlags.modalValue2"> Not Helpful
+              </label>
+              <label class="checkbox-inline">
+                <input type="checkbox" id="checkbox3" ng-model="resultFlags.modalValue3"> Wrong Tags
+              </label>
+              <label class="checkbox-inline">
+                <input type="checkbox" id="checkbox4" ng-model="resultFlags.modalValue4"> Spam
+              </label>
+            </div>
+            <div class="modal-footer">
+              <button type="button" ng-click="results.resetFlags()" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" value="submit" class="btn btn-primary" ng-click="results.hideModal($index)">Save changes</button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+    <!-- end modal -->
+  </div>
+
+
+
+
+</div>
+
+<!--
 <div class="row" ng-repeat="result in results.searchResults track by $index">
   <div class="media" ng-hide="searchResults.length == 0">
 
@@ -19,40 +81,4 @@
     <div class="media-right">
       <button class="btn btn-default" value={{result._id}} type="submit" data-toggle="modal" data-target="#flag-modal{{$index}}" ng-click="lastProduct(result._id)">Flag</button>
     </div>
-  </div>
-  <!-- modal -->
-  <div class="modal fade" id="flag-modal{{$index}}" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <form ng-submit="results.addResultFlags(lastQuery, lastProductId, resultFlags)">
-
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Please rank this result using some or all of the options</h4>
-          </div>
-          <div class="modal-body">
-            <label class="checkbox-inline">
-              <input type="checkbox" id="checkbox1" ng-model="resultFlags.modalValue1"> Inappropriate
-            </label>
-            <label class="checkbox-inline">
-              <input type="checkbox" id="checkbox2" ng-model="resultFlags.modalValue2"> Not Helpful
-            </label>
-            <label class="checkbox-inline">
-              <input type="checkbox" id="checkbox3" ng-model="resultFlags.modalValue3"> Wrong Tags
-            </label>
-            <label class="checkbox-inline">
-              <input type="checkbox" id="checkbox4" ng-model="resultFlags.modalValue4"> Spam
-            </label>
-          </div>
-          <div class="modal-footer">
-            <button type="button" ng-click="results.resetFlags()" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="submit" value="submit" class="btn btn-primary" ng-click="results.hideModal($index)">Save changes</button>
-          </div>
-        </form>
-
-      </div>
-    </div>
-  </div>
-  <!-- end modal -->
-
-</div>
+  </div> -->
