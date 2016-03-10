@@ -1,7 +1,7 @@
 "# edmodo-search"
 
 
-0.) pip install -r "requirements.txt" (in virtualenv)
-1.) python setup.py  
-2.) python app.py to run server
-3.) done! :)
+- pip install -r "requirements.txt" (in virtualenv)
+- python setup.py  
+- python app.py to run server
+- done! :)
