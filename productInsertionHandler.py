@@ -119,16 +119,13 @@ def insertProductIntoDB(product):
     cursor = conn.cursor()
     cursor.execute("INSERT INTO products (_id, _index, _score, _type) \
         VALUES (?,?,?,?)", (product_id, index, score, product_type))
-    # conn.commit()
     cursor.execute("INSERT INTO _source (product_id, title, min_price, long_desc, nor_avg_rating, num_raters, price, \
         usage_rights, currency, owner, edm_score, content_type, is_shared, url, long_desc_html, \
         liked, img_path, nor_num_raters, creation_date, img_has_other_size, greads_review_url) \
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (product_id, title, min_price, long_desc, nor_avg_rating, num_raters, price, \
         usage_rights, currency, owner_id, edm_score, content_type, is_shared, url, long_desc_html,
         liked, img_path, nor_num_raters, creation_date, img_has_other_size, greads_review_url))
-    # cursor.execute("INSERT INTO owner (id, thumb_url, district_id, first_name, type, store_url, \
-    #     followers, last_name, edmodo_url, school_id) \
-    #     VALUES (?,?,?,?,?,?,?,?,?,?)", (owner_id, thumb_url, district_id, first_name, owner_type, store_url, followers, last_name, edmodo_url, school_id))
+
     conn.commit()
     conn.close()
 

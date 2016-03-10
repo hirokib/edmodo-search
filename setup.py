@@ -15,4 +15,5 @@ if __name__ == "__main__":
         else:
             init_db()
             dbProductSetup()
+            print("Complete")
             quit()

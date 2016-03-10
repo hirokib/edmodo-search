@@ -53,10 +53,11 @@ create table owner (
 create table searchRatings (
 	query	not null,
 	product_id	integer not null,
-	inappropriate	 boolean   default 0,
-	nothelpful	boolean   default 0,
-	wrongtags	boolean   default 0,
-	spam	boolean   default 0,
+	inappropriate	 integer   default 0,
+	nothelpful	integer   default 0,
+	wrongtags	integer   default 0,
+	spam	integer   default 0,
+  primary key (query, product_id)
   foreign key (product_id) references products(_id)
 
 );

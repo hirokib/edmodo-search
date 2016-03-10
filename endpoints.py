@@ -13,13 +13,15 @@ def query_db(query, args=(), one=False):
     conn.close()
     return (rv[0] if rv else None) if one else rv
 
-def execute_query(query):
-    conn = connect_db()
-    cur = conn.cursor()
-    cur.execute(query)
-    conn.commit()
-    conn.close()
-    return ''
+def execute_query(queries):
+
+    for q in queries:
+        conn = connect_db()
+        cur = conn.cursor()
+        cur.execute(q)
+        conn.commit()
+        conn.close()
+    return 'executed'
 
 @api.route('/products', methods=['GET'])
 def getAllProducts():
@@ -53,9 +55,22 @@ def parseRanking():
     nothelpful  = 1 if (res['resultFlags']['modalValue2']) else 0
     wrongtags  = 1 if (res['resultFlags']['modalValue3']) else 0
     spam  = 1 if (res['resultFlags']['modalValue4']) else 0
-    query = "insert into searchRatings (query, product_id, inappropriate, nothelpful, wrongtags, spam) \
-             values ('{}',{},{},{},{},{})".format(query, prod_id, inappropriate, nothelpful, wrongtags, spam)
-    execute_query(query)
+    if (inappropriate == 0 and nothelpful == 0 and wrongtags == 0 and spam == 0):
+        return
+    print(query)
+    print(prod_id)
+    # if update succeeds, correct incrementing. otherwise nothing will happen
+    # implying key does not exist so the next statement will insert new row
+    # making up for lack of upsert
+    dbquery = "UPDATE searchRatings SET inappropriate = inappropriate+{0},nothelpful = nothelpful+{1}, \
+                wrongtags=wrongtags+{2},spam=spam+{3} WHERE (query = \'{4}\' and \
+                product_id = {5})".format(inappropriate, nothelpful, wrongtags, spam, query, prod_id)
+    dbquery1 = "INSERT OR IGNORE INTO searchRatings (query, product_id, inappropriate, nothelpful, wrongtags, spam) \
+             VALUES (\'{4}\',{5},{0},{1},{2},{3})".format(inappropriate, nothelpful, wrongtags, spam, query, prod_id)
+
+    print(dbquery, dbquery1)
+    execute_query([dbquery, dbquery1])
+
     return 'success'
 
 @api.route('/products/flagged', methods=['GET'])
