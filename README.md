@@ -37,3 +37,13 @@ At this point I'm not sure what you'd be caching other than perhaps common searc
 but it's definitely more convenient than serving up directly from the db. Personally
 I like having a large object with all of the data stored as fields in dictionaries load at start time. This obviously
 presupposes the absence of something like redis.
+
+
+Search Results Page
+![Alt text](/search-results.png?raw=true "Search Results")
+
+Modal Feature
+![Alt text](/modal.png?raw=true "Search Results")
+
+Flagged Results Page
+![Alt text](/flagged-results.png?raw=true "Search Results")
